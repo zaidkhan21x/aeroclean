@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+/* ─── AERO CLEAN design tokens ───────────────────────────────────────────────
+   Colours are sampled directly from the supplied logo:
+     cyan  #00C2CB · ink #282F39 · navy #2C5371 · steel-teal #6F9CA5
+   A warm "ember" accent is reserved for the hero vent illustration and
+   a few small highlights so it reads as warm air, never as a fire hazard.
+   ─────────────────────────────────────────────────────────────────────────── */
+@theme {
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-ink-950: #0e1318;
+  --color-ink-900: #151b22;
+  --color-ink-800: #1e252e;
+  --color-ink-700: #282f39;
+  --color-ink-600: #3a434f;
+  --color-ink-500: #566170;
+  --color-ink-400: #7d8896;
+
+  --color-cyan-50: #e6fafb;
+  --color-cyan-100: #c4f2f4;
+  --color-cyan-300: #5ddbe1;
+  --color-cyan-400: #1fcbd3;
+  --color-cyan-500: #00c2cb;
+  --color-cyan-600: #00a2aa;
+  --color-cyan-700: #007a80;
+
+  --color-navy-500: #3a6b8f;
+  --color-navy-600: #2c5371;
+  --color-navy-700: #224159;
+
+  --color-steel-300: #a9c4ca;
+  --color-steel-400: #8fb2ba;
+  --color-steel-500: #6f9ca5;
+
+  --color-ember-300: #ffc879;
+  --color-ember-400: #ffa94d;
+  --color-ember-500: #ff8a1f;
+  --color-ember-600: #e3660b;
+
+  --color-mist: #f3f6f7;
+  --color-mist-2: #e9eef0;
+  --color-line: #d9e1e4;
+
+  --radius-card: 0.625rem;
+  --shadow-card: 0 1px 2px rgb(14 19 24 / 0.04), 0 8px 24px -12px rgb(14 19 24 / 0.14);
+  --shadow-lift: 0 2px 4px rgb(14 19 24 / 0.05), 0 20px 40px -18px rgb(14 19 24 / 0.28);
+
+  --animate-glow: glow-breathe 7s ease-in-out infinite;
+  --animate-rise: air-rise 6s ease-in-out infinite;
+  --animate-drift: mote-drift 12s linear infinite;
+
+  @keyframes glow-breathe {
+    0%, 100% { opacity: 0.82; }
+    50% { opacity: 1; }
+  }
+  @keyframes air-rise {
+    0% { transform: translateY(8px); opacity: 0; }
+    30% { opacity: 0.7; }
+    100% { transform: translateY(-26px); opacity: 0; }
+  }
+  @keyframes mote-drift {
+    0% { transform: translate(0, 0); opacity: 0; }
+    15% { opacity: 0.9; }
+    100% { transform: translate(-30px, -90px); opacity: 0; }
+  }
+}
+
+@layer base {
+  :root {
+    --header-h: 4.75rem;
+  }
+  @media (min-width: 640px) {
+    :root {
+      --header-h: 5.25rem;
+    }
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    /* Keeps anchored sections clear of the sticky header. */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink-700 antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4 {
+    @apply text-ink-900;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-cyan-100 text-ink-900;
+  }
+
+  /* Visible, consistent focus ring (WCAG 2.2 — 2.4.7 / 2.4.11). */
+  :focus-visible {
+    outline: 3px solid var(--color-cyan-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-ember-300);
+  }
+
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer components {
+  /* Engineered detail: small mono label used above headings. */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-mono text-[0.72rem] font-medium tracking-[0.16em] uppercase;
+  }
+
+  /* Long-form legal / policy typography. */
+  .prose-legal {
+    @apply text-[1.0125rem] leading-[1.75] text-ink-600;
+  }
+  .prose-legal h2 {
+    @apply mt-14 mb-4 scroll-mt-28 text-xl font-semibold tracking-tight text-ink-900 sm:text-[1.4rem];
+  }
+  .prose-legal h3 {
+    @apply mt-8 mb-2 text-base font-semibold text-ink-900;
+  }
+  .prose-legal p {
+    @apply my-4;
+  }
+  .prose-legal ul {
+    @apply my-4 list-disc space-y-2 pl-5 marker:text-cyan-600;
+  }
+  .prose-legal ol {
+    @apply my-4 list-decimal space-y-2 pl-5 marker:text-ink-400;
+  }
+  .prose-legal a {
+    @apply font-medium text-navy-600 underline decoration-cyan-500/60 underline-offset-[3px] hover:decoration-navy-600;
+  }
+  .prose-legal strong {
+    @apply font-semibold text-ink-800;
+  }
+}
+
+/* Respect reduced-motion preferences everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .motion-safe-hide {
+    display: none !important;
+  }
+}
