@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "check:publish": "node scripts/check-publish-readiness.mjs",
-    "verify": "npm run typecheck && npm run lint && npm run build"
+    "verify": "npm run lint && npm run build && npm run typecheck"
   },
   "dependencies": {
     "lucide-react": ">=0.460.0 <2.0.0",

@@ -18,17 +18,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
 
       - name: Install dependencies
         run: npm install --no-audit --no-fund
-
-      - name: Type check
-        run: npm run typecheck
 
       - name: Lint
         run: npm run lint
@@ -37,6 +34,9 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: https://aeroclean.sbs
+
+      - name: Type check (after build, which generates next-env.d.ts)
+        run: npm run typecheck
 
       - name: Security audit (production dependencies)
         run: npm audit --omit=dev --audit-level=high
