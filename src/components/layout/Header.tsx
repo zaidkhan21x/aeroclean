@@ -9,7 +9,7 @@ import { NavLinks } from "./NavLinks";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 h-[var(--header-h)] border-b border-line/80 bg-white/95 backdrop-blur-sm supports-[backdrop-filter]:bg-white/90">
+    <header className="sticky top-0 z-50 h-[var(--header-h)] border-b border-line/80 bg-white">
       <Container size="wide" className="flex h-full items-center justify-between gap-6">
         <Logo priority className="h-[3.4rem] w-auto sm:h-[3.75rem]" />
         <nav aria-label="Main" className="hidden lg:block">
