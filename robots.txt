@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://aeroclean.sbs
+Sitemap: https://aeroclean.sbs/sitemap.xml
